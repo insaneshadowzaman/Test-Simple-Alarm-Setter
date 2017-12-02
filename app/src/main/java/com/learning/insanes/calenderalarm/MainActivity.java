@@ -2,6 +2,7 @@ package com.learning.insanes.calenderalarm;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,12 +36,15 @@ public class MainActivity extends Activity {
                 Integer month = datePicker.getMonth();
                 Integer year = datePicker.getYear();
 
-                Intent intent = new Intent(MainActivity.this, TimePickerActivity.class);
+                Intent intent = new Intent(MainActivity.this, ChooseType.class);
                 intent.putExtra(DAY, day);
                 intent.putExtra(MONTH, month);
                 intent.putExtra(YEAR, year);
                 startActivity(intent);
             }
         });
+
+
+
     }
 }

@@ -27,6 +27,8 @@ public class TimePickerActivity extends Activity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Boolean isNormal = getIntent().getBooleanExtra(ChooseType.IS_NORMAL, false);
                 Integer hour, minute;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     hour = timePicker.getHour();
@@ -46,6 +48,11 @@ public class TimePickerActivity extends Activity {
                 cal.set(Calendar.DAY_OF_MONTH, day);
                 cal.set(Calendar.HOUR_OF_DAY, hour);
                 cal.set(Calendar.MINUTE, minute);
+                cal.set(Calendar.SECOND, 0);
+
+                if(!isNormal) {
+                    cal.add(Calendar.HOUR, 24*29);
+                }
 
                 AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
                 Intent intt = new Intent(TimePickerActivity.this, NotificationSender.class);
@@ -55,7 +62,7 @@ public class TimePickerActivity extends Activity {
 
                 Toast.makeText(TimePickerActivity.this, "Alarm set at " + String.valueOf(hour) + ":" + String.valueOf(minute), Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(TimePickerActivity.this, MainActivity.class);
+                Intent intent = new Intent(TimePickerActivity.this, FirstScreen.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
